@@ -22,8 +22,8 @@ aliyun:
     access-key-secret: accessKeySecret
 ```
 
-## 快速开发微信登录
-- 封装好的微信登录的相关接口
+## 快速开发阿里云短信服务
+- 封装好的阿里云短信服务的相关接口
 ```java
 package com.github.zhangquanli.aliyun.sms;
 
