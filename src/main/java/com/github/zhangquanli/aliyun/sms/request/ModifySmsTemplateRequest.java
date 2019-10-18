@@ -20,6 +20,12 @@ import java.util.Map;
 public class ModifySmsTemplateRequest implements AliyunSmsRequest {
 
     /**
+     * 示例：短信模板CODE。
+     * 示例：SMS_152550005
+     * 是否必填：是
+     */
+    private String templateCode;
+    /**
      * 描述：短信类型。其中：
      * 0：验证码。
      * 1：短信通知。
@@ -50,6 +56,9 @@ public class ModifySmsTemplateRequest implements AliyunSmsRequest {
 
     @Override
     public Map<String, String> toMap() {
+        if (templateCode == null) {
+            throw new RuntimeException("templateCode can not be null");
+        }
         if (templateType == null) {
             throw new RuntimeException("templateType can not be null");
         }
@@ -62,7 +71,8 @@ public class ModifySmsTemplateRequest implements AliyunSmsRequest {
         if (remark == null) {
             throw new RuntimeException("remark can not be null");
         }
-        Map<String, String> map = new HashMap<>(4);
+        Map<String, String> map = new HashMap<>(5);
+        map.put("TemplateCode", templateCode);
         map.put("TemplateType", templateType.toString());
         map.put("TemplateName", templateName);
         map.put("TemplateContent", templateContent);
