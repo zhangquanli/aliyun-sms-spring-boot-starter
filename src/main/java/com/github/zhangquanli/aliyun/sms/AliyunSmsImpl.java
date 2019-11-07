@@ -13,7 +13,7 @@ import okhttp3.ResponseBody;
 import java.io.IOException;
 import java.util.Map;
 
-import static com.github.zhangquanli.aliyun.sms.constants.Action.*;
+import static com.github.zhangquanli.aliyun.sms.constants.AliyunSmsAction.*;
 import static com.github.zhangquanli.aliyun.sms.utils.AliyunSmsUtils.requestUrl;
 
 /**

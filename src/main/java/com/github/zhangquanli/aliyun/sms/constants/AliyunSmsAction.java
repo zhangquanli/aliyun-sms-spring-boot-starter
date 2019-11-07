@@ -1,11 +1,11 @@
 package com.github.zhangquanli.aliyun.sms.constants;
 
 /**
- * Action
+ * AliyunSmsAction
  *
  * @author zhangquanli
  */
-public interface Action {
+public interface AliyunSmsAction {
 
     /**
      * 发送短信
