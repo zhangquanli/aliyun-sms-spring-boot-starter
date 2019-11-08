@@ -20,7 +20,7 @@ public class QuerySendDetailsResponse extends AbstractResponse {
      * 描述：短信发送明细。
      */
     @JsonProperty("SmsSendDetailDTOs")
-    private SmsSendDetailDTOs SmsSendDetailDTOs;
+    private SmsSendDetailDTOs smsSendDetailDTOs;
 
     public String getTotalCount() {
         return totalCount;
@@ -30,11 +30,11 @@ public class QuerySendDetailsResponse extends AbstractResponse {
         this.totalCount = totalCount;
     }
 
-    public com.github.zhangquanli.aliyun.sms.response.SmsSendDetailDTOs getSmsSendDetailDTOs() {
-        return SmsSendDetailDTOs;
+    public SmsSendDetailDTOs getSmsSendDetailDTOs() {
+        return smsSendDetailDTOs;
     }
 
-    public void setSmsSendDetailDTOs(com.github.zhangquanli.aliyun.sms.response.SmsSendDetailDTOs smsSendDetailDTOs) {
-        SmsSendDetailDTOs = smsSendDetailDTOs;
+    public void setSmsSendDetailDTOs(SmsSendDetailDTOs smsSendDetailDTOs) {
+        this.smsSendDetailDTOs = smsSendDetailDTOs;
     }
 }

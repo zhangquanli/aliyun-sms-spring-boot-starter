@@ -26,6 +26,10 @@ public class DeleteSmsTemplateRequest extends AbstractRequest {
         return templateCode;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
 
         private String templateCode;

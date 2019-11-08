@@ -49,11 +49,12 @@ public abstract class AbstractHttpClient {
     protected String buildUrl(String action, AbstractRequest abstractRequest) {
         // 1. 指定请求参数
         Map<String, Object> params;
+        String requestJson;
         try {
             abstractRequest.setAccessKeyId(accessKeyId);
             abstractRequest.setAction(action);
-            String json = objectMapper.writeValueAsString(abstractRequest);
-            params = objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {
+            requestJson = objectMapper.writeValueAsString(abstractRequest);
+            params = objectMapper.readValue(requestJson, new TypeReference<Map<String, Object>>() {
             });
         } catch (JsonProcessingException e) {
             String msg = "【阿里云】>>>【短信】>>>数据转换失败";
@@ -78,18 +79,16 @@ public abstract class AbstractHttpClient {
         String sign = sign(accessKeySecret + "&", stringToSign);
         // 5. 增加签名结果到请求参数中，发送请求
         String signature = specialUrlEncode(sign);
-        return "http://dysmsapi.aliyuncs.com/?Signature=" + signature + "&" + sortedQueryString;
+        String url = "http://dysmsapi.aliyuncs.com/?Signature=" + signature + "&" + sortedQueryString;
+        if (log.isDebugEnabled()) {
+            log.debug("【阿里云】>>>【短信】>>>请求地址：{}>>>请求数据：{}", url, requestJson);
+        }
+        return url;
     }
 
     protected String get(String url) {
         Request request = new Request.Builder().url(url).get().build();
         try (Response response = okHttpClient.newCall(request).execute()) {
-            if (!response.isSuccessful()) {
-                String msg = "【阿里云】>>>【短信】>>>响应状态异常";
-                RuntimeException e = new RuntimeException(msg);
-                log.error(msg, e);
-                throw e;
-            }
             ResponseBody responseBody = response.body();
             if (responseBody == null) {
                 String msg = "【阿里云】>>>【短信】>>>响应数据为空";
