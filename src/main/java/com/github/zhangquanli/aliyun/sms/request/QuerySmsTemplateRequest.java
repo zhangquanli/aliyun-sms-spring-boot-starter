@@ -1,12 +1,10 @@
 package com.github.zhangquanli.aliyun.sms.request;
 
+import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * QuerySmsTemplateRequest
@@ -17,7 +15,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuerySmsTemplateRequest implements AliyunSmsRequest {
+public class QuerySmsTemplateRequest extends AbstractRequest {
 
     /**
      * 描述：短信模板CODE。
@@ -25,12 +23,4 @@ public class QuerySmsTemplateRequest implements AliyunSmsRequest {
      * 是否必填：是
      */
     private String templateCode;
-
-    @Override
-    public Map<String, String> toMap() {
-        if (templateCode == null) {
-            throw new RuntimeException("templateCode can not be null");
-        }
-        return Collections.singletonMap("TemplateCode", templateCode);
-    }
 }

@@ -1,12 +1,10 @@
 package com.github.zhangquanli.aliyun.sms.request;
 
+import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * SendSmsRequest
@@ -17,7 +15,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SendSmsRequest implements AliyunSmsRequest {
+public class SendSmsRequest extends AbstractRequest {
 
     /**
      * 描述：接收短信的手机号码。支持对多个手机号码发送短信，手机号码之间以英文逗号（,）分隔。
@@ -55,33 +53,4 @@ public class SendSmsRequest implements AliyunSmsRequest {
      * 是否必填：否
      */
     private String outId;
-
-    @Override
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>(6);
-        // 必填
-        if (phoneNumbers == null) {
-            throw new RuntimeException("phoneNumbers can not be null");
-        }
-        map.put("PhoneNumbers", phoneNumbers);
-        if (signName == null) {
-            throw new RuntimeException("signName can not be null");
-        }
-        map.put("SignName", signName);
-        if (templateCode == null) {
-            throw new RuntimeException("templateCode can not be null");
-        }
-        map.put("TemplateCode", templateCode);
-        // 非必填
-        if (templateParam != null) {
-            map.put("TemplateParam", templateParam);
-        }
-        if (smsUpExtendCode != null) {
-            map.put("SmsUpExtendCode", smsUpExtendCode);
-        }
-        if (outId != null) {
-            map.put("OutId", outId);
-        }
-        return map;
-    }
 }

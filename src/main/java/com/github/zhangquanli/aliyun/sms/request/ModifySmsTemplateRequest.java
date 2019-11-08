@@ -1,12 +1,10 @@
 package com.github.zhangquanli.aliyun.sms.request;
 
+import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * ModifySmsTemplateRequest
@@ -17,7 +15,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ModifySmsTemplateRequest implements AliyunSmsRequest {
+public class ModifySmsTemplateRequest extends AbstractRequest {
 
     /**
      * 示例：短信模板CODE。
@@ -53,30 +51,4 @@ public class ModifySmsTemplateRequest implements AliyunSmsRequest {
      * 是否必填：是
      */
     private String remark;
-
-    @Override
-    public Map<String, String> toMap() {
-        if (templateCode == null) {
-            throw new RuntimeException("templateCode can not be null");
-        }
-        if (templateType == null) {
-            throw new RuntimeException("templateType can not be null");
-        }
-        if (templateName == null) {
-            throw new RuntimeException("templateName can not be null");
-        }
-        if (templateContent == null) {
-            throw new RuntimeException("templateContent can not be null");
-        }
-        if (remark == null) {
-            throw new RuntimeException("remark can not be null");
-        }
-        Map<String, String> map = new HashMap<>(5);
-        map.put("TemplateCode", templateCode);
-        map.put("TemplateType", templateType.toString());
-        map.put("TemplateName", templateName);
-        map.put("TemplateContent", templateContent);
-        map.put("Remark", remark);
-        return map;
-    }
 }

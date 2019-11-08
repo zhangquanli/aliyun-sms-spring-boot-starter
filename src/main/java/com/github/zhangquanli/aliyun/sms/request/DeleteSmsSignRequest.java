@@ -1,12 +1,10 @@
 package com.github.zhangquanli.aliyun.sms.request;
 
+import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * DeleteSmsSignRequest
@@ -17,7 +15,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeleteSmsSignRequest implements AliyunSmsRequest {
+public class DeleteSmsSignRequest extends AbstractRequest {
 
     /**
      * 描述：短信签名。
@@ -25,12 +23,4 @@ public class DeleteSmsSignRequest implements AliyunSmsRequest {
      * 是否必填：是
      */
     private String signName;
-
-    @Override
-    public Map<String, String> toMap() {
-        if (signName == null) {
-            throw new RuntimeException("signName can not be null");
-        }
-        return Collections.singletonMap("SignName", signName);
-    }
 }

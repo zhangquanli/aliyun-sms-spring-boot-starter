@@ -1,12 +1,10 @@
 package com.github.zhangquanli.aliyun.sms.request;
 
+import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * SendBatchSmsRequest
@@ -17,7 +15,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SendBatchSmsRequest implements AliyunSmsRequest {
+public class SendBatchSmsRequest extends AbstractRequest {
 
     /**
      * 描述：接收短信的手机号码，JSON数组格式。
@@ -49,30 +47,4 @@ public class SendBatchSmsRequest implements AliyunSmsRequest {
      * 是否必填：否
      */
     private String smsUpExtendCodeJson;
-
-    @Override
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>(5);
-        // 必填
-        if (phoneNumberJson == null) {
-            throw new RuntimeException("phoneNumberJson can not be null");
-        }
-        map.put("PhoneNumberJson", phoneNumberJson);
-        if (signNameJson == null) {
-            throw new RuntimeException("signNameJson can not be null");
-        }
-        map.put("SignNameJson", signNameJson);
-        if (templateCode == null) {
-            throw new RuntimeException("templateCode can not be null");
-        }
-        map.put("TemplateCode", templateCode);
-        // 非必填
-        if (templateParamJson != null) {
-            map.put("TemplateParamJson", templateParamJson);
-        }
-        if (smsUpExtendCodeJson != null) {
-            map.put("SmsUpExtendCodeJson", smsUpExtendCodeJson);
-        }
-        return map;
-    }
 }

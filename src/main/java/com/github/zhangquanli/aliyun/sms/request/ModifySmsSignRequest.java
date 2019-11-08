@@ -1,13 +1,10 @@
 package com.github.zhangquanli.aliyun.sms.request;
 
+import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * ModifySmsSignRequest
@@ -18,7 +15,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ModifySmsSignRequest implements AliyunSmsRequest {
+public class ModifySmsSignRequest extends AbstractRequest {
 
     /**
      * 描述：签名名称。
@@ -42,22 +39,4 @@ public class ModifySmsSignRequest implements AliyunSmsRequest {
      * 示例：当前的短信签名应用于双11大促推广营销
      */
     private String remark;
-
-    @Override
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>(3);
-        if (signName == null) {
-            throw new RuntimeException("signName can not be null");
-        }
-        map.put("SignName", signName);
-        if (signSource == null) {
-            throw new RuntimeException("signSource can not be null");
-        }
-        map.put("SignSource", signSource.toString());
-        if (remark == null) {
-            throw new RuntimeException("remark can not be null");
-        }
-        map.put("Remark", remark);
-        return map;
-    }
 }

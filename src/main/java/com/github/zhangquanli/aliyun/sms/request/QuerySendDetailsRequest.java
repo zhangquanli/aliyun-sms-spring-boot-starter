@@ -1,12 +1,10 @@
 package com.github.zhangquanli.aliyun.sms.request;
 
+import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * QuerySendDetailsRequest
@@ -17,7 +15,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuerySendDetailsRequest implements AliyunSmsRequest {
+public class QuerySendDetailsRequest extends AbstractRequest {
 
     /**
      * 描述：分页查看发送记录，指定发送记录的的当前页码。
@@ -49,31 +47,4 @@ public class QuerySendDetailsRequest implements AliyunSmsRequest {
      * 是否必填：否
      */
     private String bizId;
-
-    @Override
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>(5);
-        // 必填
-        if (currentPage == null) {
-            throw new RuntimeException("currentPage can not be null");
-        }
-        map.put("CurrentPage", currentPage.toString());
-        if (pageSize == null) {
-            throw new RuntimeException("pageSize can not be null");
-        }
-        map.put("PageSize", pageSize.toString());
-        if (phoneNumber == null) {
-            throw new RuntimeException("phoneNumber can not be null");
-        }
-        map.put("PhoneNumber", phoneNumber);
-        if (sendDate == null) {
-            throw new RuntimeException("sendDate can not be null");
-        }
-        map.put("SendDate", sendDate);
-        // 非必填
-        if (bizId != null) {
-            map.put("BizId", bizId);
-        }
-        return map;
-    }
 }

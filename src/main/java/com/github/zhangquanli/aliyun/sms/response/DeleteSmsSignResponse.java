@@ -1,6 +1,7 @@
 package com.github.zhangquanli.aliyun.sms.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.zhangquanli.aliyun.sms.http.AbstractResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeleteSmsSignResponse {
+public class DeleteSmsSignResponse extends AbstractResponse {
     /**
      * 描述：请求状态码。 返回OK代表请求成功。
      * 示例：OK
