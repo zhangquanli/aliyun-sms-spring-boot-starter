@@ -7,7 +7,7 @@
     <dependency>
         <groupId>com.github.zhangquanli</groupId>
         <artifactId>aliyun-sms-spring-boot-starter</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </dependency>
     ```
 2. 在 `application.properties` 或 `application.yml` 文件中，进行配置
@@ -31,6 +31,9 @@
 2. 使用 `AliyunSms` 接口封装好的方法
 
 ## 更新日志
+### 1.0.2
+1. 重构代码实现，原有接口保持不变
+
 ### 1.0.1
 1. 修复【修改短信模板请求参数不正确】的bug
 
