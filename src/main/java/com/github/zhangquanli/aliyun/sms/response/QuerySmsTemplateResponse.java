@@ -2,40 +2,14 @@ package com.github.zhangquanli.aliyun.sms.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.zhangquanli.aliyun.sms.http.AbstractResponse;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * QuerySmsTemplateResponse
  *
  * @author zhangquanli
  */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class QuerySmsTemplateResponse extends AbstractResponse {
 
-    /**
-     * 描述：请求状态码。返回OK代表请求成功。
-     * 示例：OK
-     */
-    @JsonProperty("Code")
-    private String code;
-    /**
-     * 描述：状态码的描述。
-     * 示例：OK
-     */
-    @JsonProperty("Message")
-    private String message;
-    /**
-     * 描述：请求ID。
-     * 示例：F655A8D5-B967-440B-8683-DAD6FF8DE990
-     */
-    @JsonProperty("RequestId")
-    private String requestId;
     /**
      * 描述：短信模板CODE。
      * 示例：SMS_152550005
@@ -88,4 +62,60 @@ public class QuerySmsTemplateResponse extends AbstractResponse {
      */
     @JsonProperty("CreateDate")
     private String createDate;
+
+    public String getTemplateCode() {
+        return templateCode;
+    }
+
+    public void setTemplateCode(String templateCode) {
+        this.templateCode = templateCode;
+    }
+
+    public Integer getTemplateType() {
+        return templateType;
+    }
+
+    public void setTemplateType(Integer templateType) {
+        this.templateType = templateType;
+    }
+
+    public String getTemplateName() {
+        return templateName;
+    }
+
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
+    }
+
+    public String getTemplateContent() {
+        return templateContent;
+    }
+
+    public void setTemplateContent(String templateContent) {
+        this.templateContent = templateContent;
+    }
+
+    public Integer getTemplateStatus() {
+        return templateStatus;
+    }
+
+    public void setTemplateStatus(Integer templateStatus) {
+        this.templateStatus = templateStatus;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
 }

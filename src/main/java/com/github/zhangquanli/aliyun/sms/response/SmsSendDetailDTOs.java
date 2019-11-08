@@ -1,10 +1,6 @@
 package com.github.zhangquanli.aliyun.sms.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -13,10 +9,6 @@ import java.util.List;
  *
  * @author zhangquanli
  */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class SmsSendDetailDTOs {
 
     /**
@@ -24,4 +16,12 @@ public class SmsSendDetailDTOs {
      */
     @JsonProperty("SmsSendDetailDTO")
     private List<SmsSendDetailDTO> smsSendDetailDTO;
+
+    public List<SmsSendDetailDTO> getSmsSendDetailDTO() {
+        return smsSendDetailDTO;
+    }
+
+    public void setSmsSendDetailDTO(List<SmsSendDetailDTO> smsSendDetailDTO) {
+        this.smsSendDetailDTO = smsSendDetailDTO;
+    }
 }

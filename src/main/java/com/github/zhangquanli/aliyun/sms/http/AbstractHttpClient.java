@@ -48,12 +48,12 @@ public abstract class AbstractHttpClient {
 
     protected String buildUrl(String action, AbstractRequest abstractRequest) {
         // 1. 指定请求参数
-        Map<String, String> params;
+        Map<String, Object> params;
         try {
             abstractRequest.setAccessKeyId(accessKeyId);
             abstractRequest.setAction(action);
             String json = objectMapper.writeValueAsString(abstractRequest);
-            params = objectMapper.readValue(json, new TypeReference<Map<String, String>>() {
+            params = objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {
             });
         } catch (JsonProcessingException e) {
             String msg = "【阿里云】>>>【短信】>>>数据转换失败";
@@ -62,15 +62,15 @@ public abstract class AbstractHttpClient {
         }
         params.remove("Signature");
         // 2. 根据参数Key排序
-        Map<String, String> sortedParams = new TreeMap<>(params);
+        Map<String, Object> sortedParams = new TreeMap<>(params);
         // 3. 构造待请求的请求串
         StringBuilder sortedQueryStringTemp = new StringBuilder();
         for (String key : sortedParams.keySet()) {
-            String value = sortedParams.get(key);
+            Object value = sortedParams.get(key);
             sortedQueryStringTemp.append("&")
                     .append(specialUrlEncode(key))
                     .append("=")
-                    .append(specialUrlEncode(value));
+                    .append(specialUrlEncode(value.toString()));
         }
         String sortedQueryString = sortedQueryStringTemp.toString().substring(1);
         String stringToSign = "GET&" + specialUrlEncode("/") + "&" + specialUrlEncode(sortedQueryString);

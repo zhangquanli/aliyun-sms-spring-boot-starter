@@ -1,20 +1,12 @@
 package com.github.zhangquanli.aliyun.sms.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * SmsSendDetailDTO
  *
  * @author zhangquanli
  */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class SmsSendDetailDTO {
 
     /**
@@ -65,4 +57,68 @@ public class SmsSendDetailDTO {
      */
     @JsonProperty("OutId")
     private String outId;
+
+    public String getErrCode() {
+        return errCode;
+    }
+
+    public void setErrCode(String errCode) {
+        this.errCode = errCode;
+    }
+
+    public Long getSendStatus() {
+        return sendStatus;
+    }
+
+    public void setSendStatus(Long sendStatus) {
+        this.sendStatus = sendStatus;
+    }
+
+    public String getTemplateCode() {
+        return templateCode;
+    }
+
+    public void setTemplateCode(String templateCode) {
+        this.templateCode = templateCode;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getSendDate() {
+        return sendDate;
+    }
+
+    public void setSendDate(String sendDate) {
+        this.sendDate = sendDate;
+    }
+
+    public String getReceiveDate() {
+        return receiveDate;
+    }
+
+    public void setReceiveDate(String receiveDate) {
+        this.receiveDate = receiveDate;
+    }
+
+    public String getOutId() {
+        return outId;
+    }
+
+    public void setOutId(String outId) {
+        this.outId = outId;
+    }
 }

@@ -1,20 +1,13 @@
 package com.github.zhangquanli.aliyun.sms.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * DeleteSmsTemplateRequest
  *
  * @author zhangquanli
  */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class DeleteSmsTemplateRequest extends AbstractRequest {
 
     /**
@@ -22,5 +15,31 @@ public class DeleteSmsTemplateRequest extends AbstractRequest {
      * 示例：SMS_152550005
      * 是否必填：是
      */
+    @JsonProperty("TemplateCode")
     private String templateCode;
+
+    private DeleteSmsTemplateRequest(String templateCode) {
+        this.templateCode = templateCode;
+    }
+
+    public String getTemplateCode() {
+        return templateCode;
+    }
+
+    public static class Builder {
+
+        private String templateCode;
+
+        public Builder() {
+        }
+
+        public Builder templateCode(String templateCode) {
+            this.templateCode = templateCode;
+            return this;
+        }
+
+        public DeleteSmsTemplateRequest build() {
+            return new DeleteSmsTemplateRequest(templateCode);
+        }
+    }
 }

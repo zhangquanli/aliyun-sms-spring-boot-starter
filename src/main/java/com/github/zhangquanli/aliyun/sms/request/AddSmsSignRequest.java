@@ -1,29 +1,21 @@
 package com.github.zhangquanli.aliyun.sms.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
 
 /**
  * AddSmsSignRequest
  *
  * @author zhangquanli
  */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class AddSmsSignRequest implements AliyunSmsRequest {
+public class AddSmsSignRequest extends AbstractRequest {
 
     /**
      * 描述：签名名称。
      * 示例：阿里云
      * 是否必填：是
      */
+    @JsonProperty("SignName")
     private String signName;
     /**
      * 描述：签名来源。其中：
@@ -36,29 +28,64 @@ public class AddSmsSignRequest implements AliyunSmsRequest {
      * 示例：1
      * 是否必填：是
      */
+    @JsonProperty("SignSource")
     private Integer signSource;
     /**
      * 描述：短信签名申请说明。请在申请说明中详细描述您的业务使用场景，申请工信部备案网站的全称或简称请在此处填写域名，长度不超过200个字符。
      * 示例：当前的短信签名应用于双11大促推广营销
      * 是否必填：是
      */
+    @JsonProperty("Remark")
     private String remark;
 
-    @Override
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>(3);
-        if (signName == null) {
-            throw new RuntimeException("signName can not be null");
+    private AddSmsSignRequest(String signName, Integer signSource, String remark) {
+        this.signName = signName;
+        this.signSource = signSource;
+        this.remark = remark;
+    }
+
+    public String getSignName() {
+        return signName;
+    }
+
+    public Integer getSignSource() {
+        return signSource;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private String signName;
+        private Integer signSource;
+        private String remark;
+
+        public Builder() {
         }
-        map.put("SignName", signName);
-        if (signSource == null) {
-            throw new RuntimeException("signSource can not be null");
+
+        public Builder signName(String signName) {
+            this.signName = signName;
+            return this;
         }
-        map.put("SignSource", signSource.toString());
-        if (remark == null) {
-            throw new RuntimeException("remark can not be null");
+
+        public Builder signSource(Integer signSource) {
+            this.signSource = signSource;
+            return this;
         }
-        map.put("Remark", remark);
-        return map;
+
+        public Builder remark(String remark) {
+            this.remark = remark;
+            return this;
+        }
+
+        public AddSmsSignRequest build() {
+            return new AddSmsSignRequest(signName, signSource, remark);
+        }
     }
 }
