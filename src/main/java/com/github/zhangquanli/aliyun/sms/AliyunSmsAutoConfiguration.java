@@ -10,19 +10,12 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author zhangquanli
  */
-@Configuration
-@EnableConfigurationProperties(AliyunSmsProperties.class)
 @ConditionalOnProperty(prefix = "aliyun.sms", name = {"access-key-id", "access-key-secret"})
+@EnableConfigurationProperties(AliyunSmsProperties.class)
+@Configuration
 public class AliyunSmsAutoConfiguration {
-
-    private AliyunSmsProperties aliyunSmsProperties;
-
-    public AliyunSmsAutoConfiguration(AliyunSmsProperties aliyunSmsProperties) {
-        this.aliyunSmsProperties = aliyunSmsProperties;
-    }
-
     @Bean
-    public AliyunSms aliyunSms() {
+    public AliyunSms aliyunSms(AliyunSmsProperties aliyunSmsProperties) {
         return new AliyunSmsImpl(aliyunSmsProperties);
     }
 }

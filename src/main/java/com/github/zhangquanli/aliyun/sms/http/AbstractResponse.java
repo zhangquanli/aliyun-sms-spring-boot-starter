@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author zhangquanli
  */
 public abstract class AbstractResponse {
-
     /**
      * 描述：请求状态码。 返回OK代表请求成功。
      * 示例：OK

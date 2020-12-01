@@ -4,7 +4,7 @@ import com.github.zhangquanli.aliyun.sms.http.AbstractHttpClient;
 import com.github.zhangquanli.aliyun.sms.request.*;
 import com.github.zhangquanli.aliyun.sms.response.*;
 
-import static com.github.zhangquanli.aliyun.sms.constants.AliyunSmsAction.*;
+import static com.github.zhangquanli.aliyun.sms.AliyunSmsAction.*;
 
 /**
  * AliyunSmsImpl
@@ -12,85 +12,62 @@ import static com.github.zhangquanli.aliyun.sms.constants.AliyunSmsAction.*;
  * @author zhangquanli
  */
 public class AliyunSmsImpl extends AbstractHttpClient implements AliyunSms {
-
     public AliyunSmsImpl(AliyunSmsProperties aliyunSmsProperties) {
         super(aliyunSmsProperties);
     }
 
     @Override
     public SendSmsResponse sendSms(SendSmsRequest sendSmsRequest) {
-        String url = buildUrl(SEND_SMS, sendSmsRequest);
-        String responseJson = get(url);
-        return convert(responseJson, SendSmsResponse.class);
+        return get(buildUrl(SEND_SMS, sendSmsRequest), SendSmsResponse.class);
     }
 
     @Override
     public SendBatchSmsResponse sendBatchSms(SendBatchSmsRequest sendBatchSmsRequest) {
-        String url = buildUrl(SEND_BATCH_SMS, sendBatchSmsRequest);
-        String responseJson = get(url);
-        return convert(responseJson, SendBatchSmsResponse.class);
+        return get(buildUrl(SEND_BATCH_SMS, sendBatchSmsRequest), SendBatchSmsResponse.class);
     }
 
     @Override
     public QuerySendDetailsResponse querySendDetails(QuerySendDetailsRequest querySendDetailsRequest) {
-        String url = buildUrl(QUERY_SEND_DETAILS, querySendDetailsRequest);
-        String responseJson = get(url);
-        return convert(responseJson, QuerySendDetailsResponse.class);
+        return get(buildUrl(QUERY_SEND_DETAILS, querySendDetailsRequest), QuerySendDetailsResponse.class);
     }
 
     @Override
     public AddSmsSignResponse addSmsSign(AddSmsSignRequest addSmsSignRequest) {
-        String url = buildUrl(ADD_SMS_SIGN, addSmsSignRequest);
-        String responseJson = get(url);
-        return convert(responseJson, AddSmsSignResponse.class);
+        return get(buildUrl(ADD_SMS_SIGN, addSmsSignRequest), AddSmsSignResponse.class);
     }
 
     @Override
     public DeleteSmsSignResponse deleteSmsSign(DeleteSmsSignRequest deleteSmsSignRequest) {
-        String url = buildUrl(DELETE_SMS_SIGN, deleteSmsSignRequest);
-        String responseJson = get(url);
-        return convert(responseJson, DeleteSmsSignResponse.class);
+        return get(buildUrl(DELETE_SMS_SIGN, deleteSmsSignRequest), DeleteSmsSignResponse.class);
     }
 
     @Override
     public ModifySmsSignResponse modifySmsSign(ModifySmsSignRequest modifySmsSignRequest) {
-        String url = buildUrl(MODIFY_SMS_SIGN, modifySmsSignRequest);
-        String responseJson = get(url);
-        return convert(responseJson, ModifySmsSignResponse.class);
+        return get(buildUrl(MODIFY_SMS_SIGN, modifySmsSignRequest), ModifySmsSignResponse.class);
     }
 
     @Override
     public QuerySmsSignResponse querySmsSign(QuerySmsSignRequest querySmsSignRequest) {
-        String url = buildUrl(QUERY_SMS_SIGN, querySmsSignRequest);
-        String responseJson = get(url);
-        return convert(responseJson, QuerySmsSignResponse.class);
+        return get(buildUrl(QUERY_SMS_SIGN, querySmsSignRequest), QuerySmsSignResponse.class);
     }
 
     @Override
     public AddSmsTemplateResponse addSmsTemplate(AddSmsTemplateRequest addSmsTemplateRequest) {
-        String url = buildUrl(ADD_SMS_TEMPLATE, addSmsTemplateRequest);
-        String responseJson = get(url);
-        return convert(responseJson, AddSmsTemplateResponse.class);
+        return get(buildUrl(ADD_SMS_TEMPLATE, addSmsTemplateRequest), AddSmsTemplateResponse.class);
     }
 
     @Override
     public DeleteSmsTemplateResponse deleteSmsTemplate(DeleteSmsTemplateRequest deleteSmsTemplateRequest) {
-        String url = buildUrl(DELETE_SMS_TEMPLATE, deleteSmsTemplateRequest);
-        String responseJson = get(url);
-        return convert(responseJson, DeleteSmsTemplateResponse.class);
+        return get(buildUrl(DELETE_SMS_TEMPLATE, deleteSmsTemplateRequest), DeleteSmsTemplateResponse.class);
     }
 
     @Override
     public ModifySmsTemplateResponse modifySmsTemplate(ModifySmsTemplateRequest modifySmsTemplateRequest) {
-        String url = buildUrl(MODIFY_SMS_TEMPLATE, modifySmsTemplateRequest);
-        String responseJson = get(url);
-        return convert(responseJson, ModifySmsTemplateResponse.class);
+        return get(buildUrl(MODIFY_SMS_TEMPLATE, modifySmsTemplateRequest), ModifySmsTemplateResponse.class);
     }
 
     @Override
     public QuerySmsTemplateResponse querySmsTemplate(QuerySmsTemplateRequest querySmsTemplateRequest) {
-        String url = buildUrl(QUERY_SMS_TEMPLATE, querySmsTemplateRequest);
-        String responseJson = get(url);
-        return convert(responseJson, QuerySmsTemplateResponse.class);
+        return get(buildUrl(QUERY_SMS_TEMPLATE, querySmsTemplateRequest), QuerySmsTemplateResponse.class);
     }
 }

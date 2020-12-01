@@ -2,14 +2,16 @@ package com.github.zhangquanli.aliyun.sms.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
+import org.springframework.util.Assert;
 
 /**
  * AddSmsTemplateRequest
+ * <p>
+ * 官方文档：https://help.aliyun.com/document_detail/121208.html
  *
  * @author zhangquanli
  */
 public class AddSmsTemplateRequest extends AbstractRequest {
-
     /**
      * 描述：短信类型。其中：
      * 0：验证码。
@@ -43,11 +45,15 @@ public class AddSmsTemplateRequest extends AbstractRequest {
     @JsonProperty("Remark")
     private String remark;
 
-    private AddSmsTemplateRequest(Integer templateType, String templateName, String templateContent, String remark) {
-        this.templateType = templateType;
-        this.templateName = templateName;
-        this.templateContent = templateContent;
-        this.remark = remark;
+    private AddSmsTemplateRequest(Builder builder) {
+        Assert.notNull(builder.templateType, "templateType can not be null");
+        this.templateType = builder.templateType;
+        Assert.hasText(builder.templateName, "templateName can not be blank");
+        this.templateName = builder.templateName;
+        Assert.hasText(builder.templateContent, "templateContent can not be blank");
+        this.templateContent = builder.templateContent;
+        Assert.hasText(builder.remark, "remark can not be blank");
+        this.remark = builder.remark;
     }
 
     public Integer getTemplateType() {
@@ -71,13 +77,12 @@ public class AddSmsTemplateRequest extends AbstractRequest {
     }
 
     public static class Builder {
-
         private Integer templateType;
         private String templateName;
         private String templateContent;
         private String remark;
 
-        public Builder() {
+        private Builder() {
         }
 
         public Builder templateType(Integer templateType) {
@@ -101,7 +106,7 @@ public class AddSmsTemplateRequest extends AbstractRequest {
         }
 
         public AddSmsTemplateRequest build() {
-            return new AddSmsTemplateRequest(templateType, templateName, templateContent, remark);
+            return new AddSmsTemplateRequest(this);
         }
     }
 }

@@ -9,24 +9,23 @@ import com.github.zhangquanli.aliyun.sms.http.AbstractResponse;
  * @author zhangquanli
  */
 public class QuerySendDetailsResponse extends AbstractResponse {
-
     /**
      * 描述：短信发送总条数。
      * 示例：1
      */
     @JsonProperty("TotalCount")
-    private String totalCount;
+    private Long totalCount;
     /**
      * 描述：短信发送明细。
      */
     @JsonProperty("SmsSendDetailDTOs")
     private SmsSendDetailDTOs smsSendDetailDTOs;
 
-    public String getTotalCount() {
+    public Long getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(String totalCount) {
+    public void setTotalCount(Long totalCount) {
         this.totalCount = totalCount;
     }
 

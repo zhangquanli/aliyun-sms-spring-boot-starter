@@ -1,4 +1,4 @@
-package com.github.zhangquanli.aliyun.sms.constants;
+package com.github.zhangquanli.aliyun.sms;
 
 /**
  * AliyunSmsAction
@@ -6,6 +6,8 @@ package com.github.zhangquanli.aliyun.sms.constants;
  * @author zhangquanli
  */
 public interface AliyunSmsAction {
+    // ~ 短信发送接口
+    // =================================================================================================================
 
     /**
      * 发送短信
@@ -16,10 +18,16 @@ public interface AliyunSmsAction {
      */
     String SEND_BATCH_SMS = "SendBatchSms";
 
+    // ~ 短信查询接口
+    // =================================================================================================================
+
     /**
      * 查询短信发送的状态
      */
     String QUERY_SEND_DETAILS = "QuerySendDetails";
+
+    // ~ 签名申请接口
+    // =================================================================================================================
 
     /**
      * 申请短信签名
@@ -37,6 +45,9 @@ public interface AliyunSmsAction {
      * 查询短信签名的审核状态
      */
     String QUERY_SMS_SIGN = "QuerySmsSign";
+
+    // ~ 模板申请接口
+    // =================================================================================================================
 
     /**
      * 申请短信模板

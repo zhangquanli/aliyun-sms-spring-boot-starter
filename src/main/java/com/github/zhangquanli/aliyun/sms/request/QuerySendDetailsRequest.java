@@ -2,14 +2,19 @@ package com.github.zhangquanli.aliyun.sms.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
+import org.springframework.util.Assert;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * QuerySendDetailsRequest
+ * <p>
+ * 官方文档：https://help.aliyun.com/document_detail/102352.html
  *
  * @author zhangquanli
  */
 public class QuerySendDetailsRequest extends AbstractRequest {
-
     /**
      * 描述：分页查看发送记录，指定发送记录的的当前页码。
      * 示例：1
@@ -46,12 +51,16 @@ public class QuerySendDetailsRequest extends AbstractRequest {
     @JsonProperty("BizId")
     private String bizId;
 
-    private QuerySendDetailsRequest(Long currentPage, Long pageSize, String phoneNumber, String sendDate, String bizId) {
-        this.currentPage = currentPage;
-        this.pageSize = pageSize;
-        this.phoneNumber = phoneNumber;
-        this.sendDate = sendDate;
-        this.bizId = bizId;
+    private QuerySendDetailsRequest(Builder builder) {
+        Assert.notNull(builder.currentPage, "currentPage can not be null");
+        this.currentPage = builder.currentPage;
+        Assert.notNull(builder.pageSize, "pageSize can not be null");
+        this.pageSize = builder.pageSize;
+        Assert.hasText(builder.phoneNumber, "phoneNumber can not be blank");
+        this.phoneNumber = builder.phoneNumber;
+        Assert.notNull(builder.sendDate, "sendDate can not be null");
+        this.sendDate = builder.sendDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        this.bizId = builder.bizId;
     }
 
     public Long getCurrentPage() {
@@ -79,11 +88,10 @@ public class QuerySendDetailsRequest extends AbstractRequest {
     }
 
     public static class Builder {
-
         private Long currentPage;
         private Long pageSize;
         private String phoneNumber;
-        private String sendDate;
+        private LocalDate sendDate;
         private String bizId;
 
         public Builder() {
@@ -104,7 +112,7 @@ public class QuerySendDetailsRequest extends AbstractRequest {
             return this;
         }
 
-        public Builder sendDate(String sendDate) {
+        public Builder sendDate(LocalDate sendDate) {
             this.sendDate = sendDate;
             return this;
         }
@@ -115,7 +123,7 @@ public class QuerySendDetailsRequest extends AbstractRequest {
         }
 
         public QuerySendDetailsRequest build() {
-            return new QuerySendDetailsRequest(currentPage, pageSize, phoneNumber, sendDate, bizId);
+            return new QuerySendDetailsRequest(this);
         }
     }
 }

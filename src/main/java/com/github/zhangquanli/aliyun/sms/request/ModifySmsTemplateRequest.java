@@ -2,14 +2,16 @@ package com.github.zhangquanli.aliyun.sms.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
+import org.springframework.util.Assert;
 
 /**
  * ModifySmsTemplateRequest
+ * <p>
+ * 官方文档：https://help.aliyun.com/document_detail/121205.html
  *
  * @author zhangquanli
  */
 public class ModifySmsTemplateRequest extends AbstractRequest {
-
     /**
      * 示例：短信模板CODE。
      * 示例：SMS_152550005
@@ -50,12 +52,17 @@ public class ModifySmsTemplateRequest extends AbstractRequest {
     @JsonProperty("Remark")
     private String remark;
 
-    private ModifySmsTemplateRequest(String templateCode, Integer templateType, String templateName, String templateContent, String remark) {
-        this.templateCode = templateCode;
-        this.templateType = templateType;
-        this.templateName = templateName;
-        this.templateContent = templateContent;
-        this.remark = remark;
+    private ModifySmsTemplateRequest(Builder builder) {
+        Assert.hasText(builder.templateCode, "templateCode can not be blank");
+        this.templateCode = builder.templateCode;
+        Assert.notNull(builder.templateType, "templateType can not be null");
+        this.templateType = builder.templateType;
+        Assert.hasText(builder.templateName, "templateName can not be blank");
+        this.templateName = builder.templateName;
+        Assert.hasText(builder.templateContent, "templateContent can not be blank");
+        this.templateContent = builder.templateContent;
+        Assert.hasText(builder.remark, "remark can not be blank");
+        this.remark = builder.remark;
     }
 
     public String getTemplateCode() {
@@ -83,14 +90,13 @@ public class ModifySmsTemplateRequest extends AbstractRequest {
     }
 
     public static class Builder {
-
         private String templateCode;
         private Integer templateType;
         private String templateName;
         private String templateContent;
         private String remark;
 
-        public Builder() {
+        private Builder() {
         }
 
         public Builder templateCode(String templateCode) {
@@ -119,7 +125,7 @@ public class ModifySmsTemplateRequest extends AbstractRequest {
         }
 
         public ModifySmsTemplateRequest build() {
-            return new ModifySmsTemplateRequest(templateCode, templateType, templateName, templateContent, remark);
+            return new ModifySmsTemplateRequest(this);
         }
     }
 }

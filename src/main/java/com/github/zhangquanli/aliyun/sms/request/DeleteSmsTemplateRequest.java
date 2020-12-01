@@ -2,14 +2,16 @@ package com.github.zhangquanli.aliyun.sms.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
+import org.springframework.util.Assert;
 
 /**
  * DeleteSmsTemplateRequest
+ * <p>
+ * 官方文档：https://help.aliyun.com/document_detail/121211.html
  *
  * @author zhangquanli
  */
 public class DeleteSmsTemplateRequest extends AbstractRequest {
-
     /**
      * 描述：短信模板CODE。
      * 示例：SMS_152550005
@@ -18,8 +20,9 @@ public class DeleteSmsTemplateRequest extends AbstractRequest {
     @JsonProperty("TemplateCode")
     private String templateCode;
 
-    private DeleteSmsTemplateRequest(String templateCode) {
-        this.templateCode = templateCode;
+    private DeleteSmsTemplateRequest(Builder builder) {
+        Assert.hasText(builder.templateCode, "templateCode can not be blank");
+        this.templateCode = builder.templateCode;
     }
 
     public String getTemplateCode() {
@@ -31,10 +34,9 @@ public class DeleteSmsTemplateRequest extends AbstractRequest {
     }
 
     public static class Builder {
-
         private String templateCode;
 
-        public Builder() {
+        private Builder() {
         }
 
         public Builder templateCode(String templateCode) {
@@ -43,7 +45,7 @@ public class DeleteSmsTemplateRequest extends AbstractRequest {
         }
 
         public DeleteSmsTemplateRequest build() {
-            return new DeleteSmsTemplateRequest(templateCode);
+            return new DeleteSmsTemplateRequest(this);
         }
     }
 }

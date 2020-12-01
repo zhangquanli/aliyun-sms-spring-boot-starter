@@ -13,7 +13,6 @@ import java.util.UUID;
  * @author zhangquanli
  */
 public abstract class AbstractRequest {
-
     /**
      * 描述：访问密钥 ID。AccessKey 用于调用 API。
      * 示例：testId

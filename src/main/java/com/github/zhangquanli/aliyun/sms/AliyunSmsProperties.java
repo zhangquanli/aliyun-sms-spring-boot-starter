@@ -9,7 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "aliyun.sms")
 public class AliyunSmsProperties {
-
     private String accessKeyId;
     private String accessKeySecret;
 

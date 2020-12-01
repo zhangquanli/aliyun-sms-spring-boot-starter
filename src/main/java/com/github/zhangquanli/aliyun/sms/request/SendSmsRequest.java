@@ -2,14 +2,20 @@ package com.github.zhangquanli.aliyun.sms.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
+import com.github.zhangquanli.aliyun.sms.utils.JsonUtils;
+import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * SendSmsRequest
+ * <p>
+ * 官方文档：https://help.aliyun.com/document_detail/101414.html
  *
  * @author zhangquanli
  */
 public class SendSmsRequest extends AbstractRequest {
-
     /**
      * 描述：接收短信的手机号码。支持对多个手机号码发送短信，手机号码之间以英文逗号（,）分隔。
      * 示例：15900000000
@@ -53,13 +59,16 @@ public class SendSmsRequest extends AbstractRequest {
     @JsonProperty("OutId")
     private String outId;
 
-    private SendSmsRequest(String phoneNumbers, String signName, String templateCode, String templateParam, String smsUpExtendCode, String outId) {
-        this.phoneNumbers = phoneNumbers;
-        this.signName = signName;
-        this.templateCode = templateCode;
-        this.templateParam = templateParam;
-        this.smsUpExtendCode = smsUpExtendCode;
-        this.outId = outId;
+    private SendSmsRequest(Builder builder) {
+        Assert.notEmpty(builder.phoneNumbers, "phoneNumbers can not be empty");
+        this.phoneNumbers = String.join(",", builder.phoneNumbers);
+        Assert.hasText(builder.signName, "signName can not be blank");
+        this.signName = builder.signName;
+        Assert.hasText(builder.templateCode, "templateCode can not be blank");
+        this.templateCode = builder.templateCode;
+        this.templateParam = JsonUtils.writeValueAsString(builder.templateParam);
+        this.smsUpExtendCode = builder.smsUpExtendCode;
+        this.outId = builder.outId;
     }
 
     public String getPhoneNumbers() {
@@ -91,18 +100,17 @@ public class SendSmsRequest extends AbstractRequest {
     }
 
     public static class Builder {
-
-        private String phoneNumbers;
+        private List<String> phoneNumbers;
         private String signName;
         private String templateCode;
-        private String templateParam;
+        private Map<String, Object> templateParam;
         private String smsUpExtendCode;
         private String outId;
 
-        public Builder() {
+        private Builder() {
         }
 
-        public Builder phoneNumbers(String phoneNumbers) {
+        public Builder phoneNumbers(List<String> phoneNumbers) {
             this.phoneNumbers = phoneNumbers;
             return this;
         }
@@ -117,7 +125,7 @@ public class SendSmsRequest extends AbstractRequest {
             return this;
         }
 
-        public Builder templateParam(String templateParam) {
+        public Builder templateParam(Map<String, Object> templateParam) {
             this.templateParam = templateParam;
             return this;
         }
@@ -133,7 +141,7 @@ public class SendSmsRequest extends AbstractRequest {
         }
 
         public SendSmsRequest build() {
-            return new SendSmsRequest(phoneNumbers, signName, templateCode, templateParam, smsUpExtendCode, outId);
+            return new SendSmsRequest(this);
         }
     }
 }

@@ -2,14 +2,16 @@ package com.github.zhangquanli.aliyun.sms.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
+import org.springframework.util.Assert;
 
 /**
  * QuerySmsTemplateRequest
+ * <p>
+ * 官方文档：https://help.aliyun.com/document_detail/121206.html
  *
  * @author zhangquanli
  */
 public class QuerySmsTemplateRequest extends AbstractRequest {
-
     /**
      * 描述：短信模板CODE。
      * 示例：SMS_152550005
@@ -18,8 +20,9 @@ public class QuerySmsTemplateRequest extends AbstractRequest {
     @JsonProperty("TemplateCode")
     private String templateCode;
 
-    private QuerySmsTemplateRequest(String templateCode) {
-        this.templateCode = templateCode;
+    private QuerySmsTemplateRequest(Builder builder) {
+        Assert.hasText(builder.templateCode, "templateCode can not be blank");
+        this.templateCode = builder.templateCode;
     }
 
     public String getTemplateCode() {
@@ -31,10 +34,9 @@ public class QuerySmsTemplateRequest extends AbstractRequest {
     }
 
     public static class Builder {
-
         private String templateCode;
 
-        public Builder() {
+        private Builder() {
         }
 
         public Builder templateCode(String templateCode) {
@@ -43,7 +45,7 @@ public class QuerySmsTemplateRequest extends AbstractRequest {
         }
 
         public QuerySmsTemplateRequest build() {
-            return new QuerySmsTemplateRequest(templateCode);
+            return new QuerySmsTemplateRequest(this);
         }
     }
 }

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author zhangquanli
  */
 public class SmsSendDetailDTO {
-
     /**
      * 描述：运营商短信状态码。短信发送成功：DELIVRD；短信发送失败：失败错误码请参考错误码文档。https://help.aliyun.com/document_detail/101347.html
      * 示例：DELIVRD

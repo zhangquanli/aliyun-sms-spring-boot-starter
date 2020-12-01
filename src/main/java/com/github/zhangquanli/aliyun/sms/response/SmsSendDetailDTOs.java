@@ -10,7 +10,6 @@ import java.util.List;
  * @author zhangquanli
  */
 public class SmsSendDetailDTOs {
-
     /**
      * 描述：短信发送明细。
      */

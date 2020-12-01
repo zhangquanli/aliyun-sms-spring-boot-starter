@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.zhangquanli.aliyun.sms.AliyunSmsException;
 import com.github.zhangquanli.aliyun.sms.AliyunSmsProperties;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -31,11 +32,11 @@ import java.util.TreeMap;
  * @author zhangquanli
  */
 public abstract class AbstractHttpClient {
-    private static final Logger log = LoggerFactory.getLogger(AbstractHttpClient.class);
-    private String accessKeyId;
-    private String accessKeySecret;
-    private OkHttpClient okHttpClient;
-    private ObjectMapper objectMapper;
+    private final Logger log = LoggerFactory.getLogger(getClass());
+    private final String accessKeyId;
+    private final String accessKeySecret;
+    private final OkHttpClient okHttpClient;
+    private final ObjectMapper objectMapper;
 
     protected AbstractHttpClient(AliyunSmsProperties aliyunSmsProperties) {
         this.accessKeyId = aliyunSmsProperties.getAccessKeyId();
@@ -49,17 +50,14 @@ public abstract class AbstractHttpClient {
     protected String buildUrl(String action, AbstractRequest abstractRequest) {
         // 1. 指定请求参数
         Map<String, Object> params;
-        String requestJson;
         try {
             abstractRequest.setAccessKeyId(accessKeyId);
             abstractRequest.setAction(action);
-            requestJson = objectMapper.writeValueAsString(abstractRequest);
+            String requestJson = objectMapper.writeValueAsString(abstractRequest);
             params = objectMapper.readValue(requestJson, new TypeReference<Map<String, Object>>() {
             });
         } catch (JsonProcessingException e) {
-            String msg = "【阿里云】>>>【短信】>>>数据转换失败";
-            log.error(msg, e);
-            throw new RuntimeException(msg);
+            throw new AliyunSmsException("【阿里云短信】>>>调用失败", e);
         }
         params.remove("Signature");
         // 2. 根据参数Key排序
@@ -77,44 +75,28 @@ public abstract class AbstractHttpClient {
         String stringToSign = "GET&" + specialUrlEncode("/") + "&" + specialUrlEncode(sortedQueryString);
         // 4. 签名
         String sign = sign(accessKeySecret + "&", stringToSign);
-        // 5. 增加签名结果到请求参数中，发送请求
+        // 5. 增加签名结果到请求参数中
         String signature = specialUrlEncode(sign);
-        String url = "http://dysmsapi.aliyuncs.com/?Signature=" + signature + "&" + sortedQueryString;
-        if (log.isDebugEnabled()) {
-            log.debug("【阿里云】>>>【短信】>>>请求地址：{}>>>请求数据：{}", url, requestJson);
-        }
+        String host = "http://dysmsapi.aliyuncs.com/";
+        String url = host + "?Signature=" + signature + "&" + sortedQueryString;
+        log.debug("【阿里云短信】>>>请求地址：{}", url);
         return url;
     }
 
-    protected String get(String url) {
+    protected <T extends AbstractResponse> T get(String url, Class<T> responseType) {
+        // 构建请求
         Request request = new Request.Builder().url(url).get().build();
+        // 发送请求
         try (Response response = okHttpClient.newCall(request).execute()) {
             ResponseBody responseBody = response.body();
             if (responseBody == null) {
-                String msg = "【阿里云】>>>【短信】>>>响应数据为空";
-                RuntimeException e = new RuntimeException(msg);
-                log.error(msg, e);
-                throw e;
+                throw new AliyunSmsException("【阿里云短信】>>>调用失败");
             }
             String responseJson = responseBody.string();
-            if (log.isDebugEnabled()) {
-                log.debug("【阿里云】>>>【短信】>>>响应数据：{}", responseJson);
-            }
-            return responseJson;
+            log.debug("【阿里云短信】>>>响应数据：{}", responseJson);
+            return objectMapper.readValue(responseJson, responseType);
         } catch (IOException e) {
-            String msg = "【阿里云】>>>【短信】>>>网络请求异常";
-            log.error(msg, e);
-            throw new RuntimeException(msg);
-        }
-    }
-
-    protected <T extends AbstractResponse> T convert(String json, Class<T> targetClass) {
-        try {
-            return objectMapper.readValue(json, targetClass);
-        } catch (JsonProcessingException e) {
-            String msg = "【阿里云】>>>【短信】>>>数据转换异常";
-            log.error(msg, e);
-            throw new RuntimeException(msg);
+            throw new AliyunSmsException("【阿里云短信】>>>调用失败", e);
         }
     }
 

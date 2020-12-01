@@ -9,7 +9,6 @@ import com.github.zhangquanli.aliyun.sms.http.AbstractResponse;
  * @author zhangquanli
  */
 public class QuerySmsTemplateResponse extends AbstractResponse {
-
     /**
      * 描述：短信模板CODE。
      * 示例：SMS_152550005
