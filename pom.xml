@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.zhangquanli</groupId>
     <artifactId>aliyun-sms-spring-boot-starter</artifactId>
-    <version>1.0.2</version>
+    <version>1.1.0</version>
     <name>aliyun-sms-spring-boot-starter</name>
     <url>https://github.com/zhangquanli/aliyun-sms-spring-boot-starter</url>
     <description>spring boot starter for aliyun sms</description>
