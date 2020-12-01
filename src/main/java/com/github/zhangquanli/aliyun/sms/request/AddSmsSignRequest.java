@@ -2,14 +2,16 @@ package com.github.zhangquanli.aliyun.sms.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.zhangquanli.aliyun.sms.http.AbstractRequest;
+import org.springframework.util.Assert;
 
 /**
  * AddSmsSignRequest
+ * <p>
+ * 官方文档：https://help.aliyun.com/document_detail/121207.html
  *
  * @author zhangquanli
  */
 public class AddSmsSignRequest extends AbstractRequest {
-
     /**
      * 描述：签名名称。
      * 示例：阿里云
@@ -38,10 +40,13 @@ public class AddSmsSignRequest extends AbstractRequest {
     @JsonProperty("Remark")
     private String remark;
 
-    private AddSmsSignRequest(String signName, Integer signSource, String remark) {
-        this.signName = signName;
-        this.signSource = signSource;
-        this.remark = remark;
+    private AddSmsSignRequest(Builder builder) {
+        Assert.hasText(builder.signName, "signName can not be blank");
+        this.signName = builder.signName;
+        Assert.notNull(signSource, "signSource can not be null");
+        this.signSource = builder.signSource;
+        Assert.hasText(builder.remark, "remark can not be blank");
+        this.remark = builder.remark;
     }
 
     public String getSignName() {
@@ -61,12 +66,11 @@ public class AddSmsSignRequest extends AbstractRequest {
     }
 
     public static class Builder {
-
         private String signName;
         private Integer signSource;
         private String remark;
 
-        public Builder() {
+        private Builder() {
         }
 
         public Builder signName(String signName) {
@@ -85,7 +89,7 @@ public class AddSmsSignRequest extends AbstractRequest {
         }
 
         public AddSmsSignRequest build() {
-            return new AddSmsSignRequest(signName, signSource, remark);
+            return new AddSmsSignRequest(this);
         }
     }
 }

@@ -107,9 +107,7 @@ public abstract class AbstractHttpClient {
             byte[] signData = mac.doFinal(stringToSign.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(signData);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-            String msg = "【阿里云】>>>【短信】>>>构造签名失败";
-            log.error(msg, e);
-            throw new RuntimeException(msg);
+            throw new AliyunSmsException("【阿里云短信】>>>构造签名失败", e);
         }
     }
 
@@ -120,9 +118,7 @@ public abstract class AbstractHttpClient {
                     .replace("*", "%2A")
                     .replace("%7E", "~");
         } catch (UnsupportedEncodingException e) {
-            String msg = "【阿里云】>>>【短信】>>>构造签名失败";
-            log.error(msg, e);
-            throw new RuntimeException(msg);
+            throw new AliyunSmsException("【阿里云短信】>>>构造签名失败", e);
         }
     }
 }
